@@ -8,7 +8,7 @@ var express     = require('express'),
 //If you didnt shut down Mogo correctly
 //   mongod --repair<br><br>
 //   if that doesnt work --repairpath <path>
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_camp_v2");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 
