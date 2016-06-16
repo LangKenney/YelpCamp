@@ -1,4 +1,4 @@
-//======================Campgroud routes======================
+//======================Campground routes======================
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
@@ -35,7 +35,7 @@ router.post('/', middleware.isLoggedIn, function(req,res){
             console.log(err);
         } else {
             //redirect back to campground page
-            //console.log(newlyCreated);
+            req.flash("success", "Added a new Campground!");
             res.redirect('/campgrounds');
         }
     });
@@ -63,6 +63,7 @@ router.get('/:id',function(req,res){
 router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) {
         Campground.findById(req.params.id, function(err, foundCampground){
         if(err){
+            req.flash("error", "Cound not find campground");
             res.redirect("/campgrounds");
         } else {
                 res.render("campgrounds/edit", {campground: foundCampground});
@@ -78,6 +79,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
             res.redirect("/campgrounds");
         } else {
             //redirect back to show page
+            req.flash("success", "Updated Campground");
             res.redirect("/campgrounds/"+req.params.id);
         }
     });
@@ -89,6 +91,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
         if(err){
             res.redirect("/campgrounds");
         } else {
+            req.flash("success", "Deleted Campground");
             res.redirect("/campgrounds");
         }
     });
